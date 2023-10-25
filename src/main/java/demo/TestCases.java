@@ -2,6 +2,7 @@ package src.main.java.demo;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.io.File;
 import java.lang.InterruptedException;
@@ -91,20 +92,32 @@ public class TestCases {
 
     public  void searchAmazon() throws InterruptedException, IOException{
 
-    //Navigate to URL  https://www.google.co.in/
-    driver.get("https://www.google.co.in/");
+        //Navigate to URL  https://www.google.co.in/
+        driver.get("https://www.google.co.in/");
 
-    // Click on search bar and enter text on that Using Locator "ID" APjFqb | SendKeys("amazon")
-    WebElement searchBar = driver.findElement(By.id("APjFqb"));
-    searchBar.click();
-    searchBar.sendKeys("amazon");
+        // Click on search bar and enter text on that Using Locator "ID" APjFqb | SendKeys("amazon")
+        WebElement searchBar = driver.findElement(By.id("APjFqb"));
+        searchBar.click();
+        searchBar.sendKeys("amazon");
 
-    // Click on Google search button Using Locator "XPath" //input[@value='Google Search']
-    driver.findElement(By.xpath("//input[@value='Google Search']")).click();
+        // Click on Google search button Using Locator "XPath" //input[@value='Google Search']
+        driver.findElement(By.xpath("//input[@value='Google Search']")).click();
 
-    // Search result page validate Amazon.in present or not Using Locator "XPath" 
-    WebElement amazonUrl = driver.findElement(By.xpath("//span[text()='Amazon.in']"));
-    System.out.println("Amazon.in is searched in google: " + amazonUrl.isDisplayed());
+        // Search result page validate Amazon.in present or not Using Locator "XPath" 
+        WebElement amazonUrl = driver.findElement(By.xpath("//span[text()='Amazon.in']"));
+        System.out.println("Amazon.in is searched in google: " + amazonUrl.isDisplayed());
+    }
+
+    public void countHyperlinks() throws InterruptedException, IOException{
+    
+        //Navigate to URL  www.bookmyshow.com
+        driver.get("https://in.bookmyshow.com/explore/home/chennai");
+    
+        // Get the count of hyperlinks Using Locator "XPath" //a[@href] / size()
+        List<WebElement> hyperlinks = driver.findElements(By.xpath("//a[@href]"));
+        
+        // Print the number of hyperlinks  System.out.println()
+        System.out.println("Hyperlinks present on Book my show page are: " + hyperlinks.size());
     }
 }
 

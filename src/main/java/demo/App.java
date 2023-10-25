@@ -15,7 +15,8 @@ public class App {
         //TODO: call your test case functions one after other here
         // tests.testCase01();
         // tests.nestedFramesText();
-        tests.searchAmazon();
+        // tests.searchAmazon();
+        tests.countHyperlinks();
 
         //END Tests
         tests.endTest();// End your test by clearning connections and closing browser
