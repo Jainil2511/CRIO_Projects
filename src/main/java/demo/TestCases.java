@@ -119,6 +119,62 @@ public class TestCases {
         // Print the number of hyperlinks  System.out.println()
         System.out.println("Hyperlinks present on Book my show page are: " + hyperlinks.size());
     }
+
+    public void postOnLinkedIn() throws InterruptedException, IOException{
+
+        // Navigate to URL  https://in.linkedin.com
+        driver.get("https://in.linkedin.com");
+
+        // Enter text on email or phone text box Using Locator "XPath" //input[@autocomplete='username']/sendKeys("abc123@gmail.com")
+        WebElement usernametxtBox = driver.findElement(By.xpath("//input[@autocomplete='username']"));
+        usernametxtBox.click();
+        usernametxtBox.sendKeys("abc123@gmail.com");
+
+        // Enter text on password text box Using Locator "xpath" //input[@autocomplete='current-password']/sendKeys("******")
+        WebElement passwordtxtBox = driver.findElement(By.xpath("//input[@autocomplete='current-password']"));
+        passwordtxtBox.click();
+        passwordtxtBox.sendKeys("******");
+
+        // Click on sign in button  Using Locator "XPath" //button[contains(text(),'Sign in')]
+        driver.findElement(By.xpath("//button[contains(text(),'Sign in')]")).click();
+
+        // Locate profile viewers and get count  Using Locator "XPath" //ul[@class='entity-list row']//child::li[1]//child::a//child::div//child::div[2] /.getText()
+        String profileViews = driver.findElement(By.xpath("//ul[@class='entity-list row']//child::li[1]//child::a//child::div//child::div[2]")).getText();
+        System.out.println("Profile viewers: " + profileViews);
+
+        // Locate post impressions and get count Using Locator "XPath" //ul[@class='entity-list row']//child::li[2]//child::a//child::div//child::div[2] / .getText()
+        String postImpressions = driver.findElement(By.xpath("//ul[@class='entity-list row']//child::li[2]//child::a//child::div//child::div[2]")).getText();
+        System.out.println(("Post impressions: " + postImpressions));
+
+        // Click on Start a post button Using Locator "XPath" //button[contains(@class , 'share-box-feed-entry_')]
+        driver.findElement(By.xpath("//button[contains(@class , 'share-box-feed-entry_')]")).click();
+
+        // Click on post setting button with 'Connections only' Using Locator "XPath" | //button[contains(@class,'entry-button')]
+        driver.findElement(By.xpath("//button[contains(@class,'entry-button')]")).click();
+
+        // Click on connections only button Using Locator "ID" CONNECTIONS_ONLY
+        driver.findElement(By.id("CONNECTIONS_ONLY")).click();
+
+        // Click on Done button Using Locator "XPath" //span[text()='Done']
+        driver.findElement(By.xpath("//span[text()='Done']")).click();
+
+        // Enter text on text box Using Locator xpath "//div[@aria-placeholder='What do you want to talk about?']"|sendKeys("CRIO Masters in QA automation")
+        WebElement textField = driver.findElement(By.xpath("//div[@aria-placeholder='What do you want to talk about?']"));
+        textField.click();
+        textField.sendKeys("CRIO Masters in QA automation");
+
+        // Click on post button Using Locator "xpath" //span[text()='Post']
+        driver.findElement(By.xpath("//span[text()='Post']")).click();
+
+        // Confirm User name in Different shows in page using locator xpath "//span[@dir='ltr' and text()='Jainil Hirpara']"
+        Boolean userNameValidation = driver.findElement(By.xpath("//span[@dir='ltr' and text()='Jainil Hirpara']")).isDisplayed();
+        System.out.println("Post is created with user name Jainil Hirpara in it: " + userNameValidation);
+
+        // LinkedIn page validate CRIO Masters in QA automation Using Locator "XPath" //span[text()='CRIO Masters in QA automation']/isDisplayed()
+        Boolean postValidation = driver.findElement(By.xpath("//span[text()='CRIO Masters in QA automation']")).isDisplayed();
+        System.out.println("In post confirm CRIO Masters in QA automation text exists: " + postValidation);
+
+    }
 }
 
 
