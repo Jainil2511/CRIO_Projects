@@ -17,7 +17,8 @@ public class App {
         // tests.nestedFramesText();
         // tests.searchAmazon();
         // tests.countHyperlinks();
-        tests.postOnLinkedIn();
+        // tests.postOnLinkedIn();
+        tests.imdbRatings();
 
         //END Tests
         tests.endTest();// End your test by clearning connections and closing browser

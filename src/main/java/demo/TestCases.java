@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 
 
@@ -174,6 +175,55 @@ public class TestCases {
         Boolean postValidation = driver.findElement(By.xpath("//span[text()='CRIO Masters in QA automation']")).isDisplayed();
         System.out.println("In post confirm CRIO Masters in QA automation text exists: " + postValidation);
 
+    }
+
+    public void imdbRatings() throws InterruptedException, IOException{
+
+        // Navigate to URL https://www.imdb.com/chart/top/
+        driver.get("https://www.imdb.com/chart/top/");
+
+        // Find list of movies shown in page using xpath "//li[contains(@class,'cli-parent')]" | size()
+        List<WebElement> MoviesList = driver.findElements(By.xpath("//li[contains(@class,'cli-parent')]"));
+        System.out.println("Included movies in table: " + MoviesList.size());
+
+        // Locate first movie in the list and get text from this locator By xpath "//div[@class='ipc-metadata-list-summary-item__c']//h3" | getText()
+        String highestRatedMovieonIMDB =  driver.findElement(By.xpath("//div[@class='ipc-metadata-list-summary-item__c']//h3")).getText();
+        String movieName = highestRatedMovieonIMDB.split(" ", 2)[1];
+        System.out.println("Highest rated movie on IMDB is: " + movieName);
+
+        // Create object of select class by passing webelement of dropdown by xpath "//select[@id='sort-by-selector']"
+        Select select = new Select(driver.findElement(By.xpath("//select[@id='sort-by-selector']")));
+
+        // Selecte dropdown by text select.selectByVisibleText("Release date");
+        select.selectByVisibleText("Release date");
+
+        // Locate first movie in the list and get text from this locator By xpath "//div[@class='ipc-metadata-list-summary-item__c']//h3" | getText()
+        String mostRecentMovie = driver.findElement(By.xpath("//div[@class='ipc-metadata-list-summary-item__c']//h3")).getText();
+        String mostRecentMovieInList = mostRecentMovie.split(" ", 2)[1];
+
+        // Locate released year by using xapth "//div[@class='ipc-metadata-list-summary-item__c']//following::span" | getText()
+        String releasedYear = driver.findElement(By.xpath("//div[@class='ipc-metadata-list-summary-item__c']//following::span")).getText();
+        System.out.println("Most recent movie on the list is " + mostRecentMovieInList + " released in " + releasedYear);
+
+        // Click on swap button using id "swap-sort-order-button"
+        driver.findElement(By.id("swap-sort-order-button")).click();
+
+        // Locate first movie in the list and get text from this locator By xpath "//div[@class='ipc-metadata-list-summary-item__c']//h3" | getText()
+        String oldestMovie = driver.findElement(By.xpath("//div[@class='ipc-metadata-list-summary-item__c']//h3")).getText();
+        String oldestMovieInList = oldestMovie.split(" ", 2)[1].trim();
+
+        // Locate released year of movie by using xpath and get text from the locator "//div[@class='ipc-metadata-list-summary-item__c']//following::span" | getText()
+        String releasedYear1 = driver.findElement(By.xpath("//div[@class='ipc-metadata-list-summary-item__c']//following::span")).getText();
+        System.out.println("Oldest movie on the list is " + oldestMovieInList + " released in " + releasedYear1);
+
+        // In dropdown select By text "Number of ratings"
+        select.selectByVisibleText("Number of ratings");
+
+        // Locate first movie in the list by xpath "//div[@class='ipc-metadata-list-summary-item__c']//h3" | getText()
+        String mostUserRatings = driver.findElement(By.xpath("//div[@class='ipc-metadata-list-summary-item__c']//h3")).getText();
+        String mostUserRatingsMovie = mostUserRatings.split(" ", 2)[1];
+        System.out.println(mostUserRatingsMovie + " Movie has the most user ratings");
+        
     }
 }
 
