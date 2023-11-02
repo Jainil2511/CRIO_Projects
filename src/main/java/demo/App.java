@@ -8,7 +8,7 @@ import java.lang.InterruptedException;
 
 
 public class App {
-    public void getGreeting() throws InterruptedException, IOException, MalformedURLException {
+    public void getGreeting() throws InterruptedException, IOException, MalformedURLException, ClassNotFoundException {
         System.out.println("Hello");
         TestCases tests = new TestCases(); // Initialize your test class
 
@@ -18,7 +18,8 @@ public class App {
         // tests.searchAmazon();
         // tests.countHyperlinks();
         // tests.postOnLinkedIn();
-        tests.imdbRatings();
+        // tests.imdbRatings();
+        tests.windowHandle();
 
         //END Tests
         tests.endTest();// End your test by clearning connections and closing browser
@@ -26,6 +27,11 @@ public class App {
     }
 
     public static void main(String[] args) throws InterruptedException, IOException, MalformedURLException {
-        new App().getGreeting();
+        try {
+            new App().getGreeting();
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
     }
 }

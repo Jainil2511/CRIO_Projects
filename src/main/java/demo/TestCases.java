@@ -10,13 +10,17 @@ import java.lang.InterruptedException;
 import io.github.bonigarcia.wdm.WebDriverManager;
 //Selenium Imports
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import java.util.Set;
 
 
 
@@ -224,6 +228,48 @@ public class TestCases {
         String mostUserRatingsMovie = mostUserRatings.split(" ", 2)[1];
         System.out.println(mostUserRatingsMovie + " Movie has the most user ratings");
         
+    }
+    
+    public void windowHandle() throws IOException, InterruptedException{
+
+        // Navigate to url  https://www.w3schools.com/jsref/tryit.aspfilename=tryjsref_win_open
+        driver.get("https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_open");
+
+        // Get parent page window handle
+        String parentPage = driver.getWindowHandle();
+
+        // Switch to the iframe which contain Try it button
+        driver.switchTo().frame("iframeResult");
+
+        // Click on try it button Using Locator "XPath" //button[text()='Try it']
+        driver.findElement(By.xpath("//button[text()='Try it']")).click();
+
+        // Create set and get window handles
+        Set<String> allWindows = driver.getWindowHandles();
+
+        // Using loop move access of selenium to newly opened window 
+        for (String window: allWindows) {
+            if (!window.equals(parentPage)) {
+                driver.switchTo().window(window);
+                // Get the URL, Title newly opened window
+                System.out.println("URL of the newly opened window: " + driver.getCurrentUrl());
+                System.out.println("Title of the newly opened window: " + driver.getTitle());
+                Thread.sleep(2000);
+                // Get the screenshot of newly opened window
+                TakesScreenshot scrShot = ((TakesScreenshot) driver);
+                File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+                String fileName = "Screenshot1.png";
+                File Destfile = new File(fileName);
+                FileUtils.copyFile(SrcFile, Destfile);
+                
+                // Close newly opened window  driver.close()
+                driver.close();
+            }
+        } 
+        Thread.sleep(2000);
+        // Switch back to the original window  driver.switchTo().window()
+        driver.switchTo().window(parentPage);
+      
     }
 }
 
