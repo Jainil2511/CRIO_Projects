@@ -19,7 +19,8 @@ public class App {
         // tests.countHyperlinks();
         // tests.postOnLinkedIn();
         // tests.imdbRatings();
-        tests.windowHandle();
+        // tests.windowHandle();
+        tests.imageUrls();
 
         //END Tests
         tests.endTest();// End your test by clearning connections and closing browser

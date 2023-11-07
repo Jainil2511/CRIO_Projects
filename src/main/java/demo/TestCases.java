@@ -17,9 +17,13 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.JavascriptExecutor;
 import java.util.Set;
 
 
@@ -270,6 +274,42 @@ public class TestCases {
         // Switch back to the original window  driver.switchTo().window()
         driver.switchTo().window(parentPage);
       
+    }
+
+    public void imageUrls() throws IOException, InterruptedException{
+
+        // Navigate to URL  https://in.bookmyshow.com/explore/home/chennai
+        driver.get("https://in.bookmyshow.com/explore/home/chennai");
+
+        // Create list of web elements  Using Locator "XPath" //div[contains(@class,'style__RelativeContainer')]//img[@src]
+        driver.findElement(By.xpath("//div[contains(@class,'style__RelativeContainer')]//*[local-name()='svg']")).click();
+        Thread.sleep(1000);
+        List<WebElement> recommendedMovies = driver.findElements(By.xpath("//div[contains(@class,'style__RelativeContainer')]//img[@src]"));
+
+        // Print the URLs  getAttribute("src")
+        // for (WebElement movie : recommendedMovies) {
+        //     System.out.println("Recommended movie URL is: " + movie.getAttribute("src"));
+        // }
+        for(int i = 0; i < recommendedMovies.size(); i++){
+            System.out.println(i+1 +". Recommended movie URL is: " + recommendedMovies.get(i).getAttribute("src"));
+        }
+
+        Thread.sleep(2000);
+
+        // Use JavascriptExecutor to scroll to the premiere movies list
+        // WebElement premiereMovieList = driver.findElement(By.xpath("//*[text()='Premieres']"));
+        // Actions actions = new Actions(driver);
+        // actions.moveToElement(element).perform();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,509.53)");
+
+        Thread.sleep(2000);
+
+        // By using xpath axes locate 2nd item in the Premieres movies list Using Locator "XPath" getAttribute("src")
+        // From this element print name&language of that 2nd movie
+        WebElement secondMovie = driver.findElement(By.xpath("//*[text()='Premieres']//ancestor::div[3]//following-sibling::div//a[2]//child::div//div[3]"));
+        String nameandLangofMovie = secondMovie.getText();
+        System.out.println("Name & Language of second movie in premieres list: " + nameandLangofMovie);
     }
 }
 
